@@ -16,9 +16,17 @@ namespace MyTwitchTools.Stores
             set
             {
                 _currentAccount = value;
+                CurrentAccountChanged?.Invoke();
             }
         }
 
         public bool IsLoggedIn => CurrentAccount != null;
+
+        public event Action CurrentAccountChanged;
+
+        internal void Logout()
+        {
+            CurrentAccount = null;
+        }
     }
 }

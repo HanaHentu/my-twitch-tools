@@ -25,6 +25,9 @@
             <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                 <views:LoginView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                 <components:Layout />
             </DataTemplate>

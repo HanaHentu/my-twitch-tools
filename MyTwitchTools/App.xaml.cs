@@ -54,13 +54,22 @@ namespace MyTwitchTools
                 CreateNavigationBarViewModel);
         }
 
+        private INavigationService<SettingsViewModel> CreateSettingsNavigationService()
+        {
+            return new LayoutNavigationService<SettingsViewModel>(
+                _navigationStore,
+                () => new SettingsViewModel(),
+                CreateNavigationBarViewModel);
+        }
+
         private NavigationBarViewModel CreateNavigationBarViewModel()
         {
             return new NavigationBarViewModel(
                             _accountStore,
                             CreateHomeNavigationService(),
                             CreateChatNavigationService(),
-                            CreateLoginNavigationService());
+                            CreateLoginNavigationService(),
+                            CreateSettingsNavigationService());
         }
     }
 }

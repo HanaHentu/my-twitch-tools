@@ -14,7 +14,9 @@ namespace MyTwitchTools.Services
         private readonly Func<TViewModel> _createViewModel;
         private readonly Func<NavigationBarViewModel> _createNavigationBarViewModel;
 
-        public LayoutNavigationService(NavigationStore navigationStore, Func<TViewModel> createViewModel, Func<NavigationBarViewModel> createNavigationBarViewModel)
+        public LayoutNavigationService(NavigationStore navigationStore,
+            Func<TViewModel> createViewModel,
+            Func<NavigationBarViewModel> createNavigationBarViewModel)
         {
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;

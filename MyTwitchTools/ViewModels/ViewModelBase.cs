@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyTwitchTools.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -15,5 +15,7 @@ namespace MyTwitchTools.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public virtual void Dispose() { }
     }
 }

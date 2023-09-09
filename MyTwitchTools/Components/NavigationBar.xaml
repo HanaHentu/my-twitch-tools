@@ -36,10 +36,21 @@
             Header="Login"
             Visibility="{Binding IsNotLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
             <hc:SideMenuItem.Icon>
-                <TextBlock Text="&#xf061;" />
+                <TextBlock Text="&#xf2f6;" />
             </hc:SideMenuItem.Icon>
         </hc:SideMenuItem>
-        <hc:SideMenuItem CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}" Header="Settings">
+        <hc:SideMenuItem
+            Command="{Binding LogoutCommand}"
+            CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"
+            Header="Logout">
+            <hc:SideMenuItem.Icon>
+                <TextBlock Text="&#xf2f5;" />
+            </hc:SideMenuItem.Icon>
+        </hc:SideMenuItem>
+        <hc:SideMenuItem
+            Command="{Binding NavigateSettingsCommand}"
+            CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"
+            Header="Settings">
             <hc:SideMenuItem.Icon>
                 <TextBlock Text="&#xf013;" />
             </hc:SideMenuItem.Icon>

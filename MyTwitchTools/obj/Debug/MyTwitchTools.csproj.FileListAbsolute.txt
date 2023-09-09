@@ -13,6 +13,7 @@ C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MainWindow.g.
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\ChatView.g.cs
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\HomeView.g.cs
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\LoginView.g.cs
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\SettingsView.g.cs
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\App.g.cs
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools_MarkupCompile.cache
@@ -24,6 +25,7 @@ C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MainWindow.ba
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\ChatView.baml
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\HomeView.baml
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\LoginView.baml
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\SettingsView.baml
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.g.resources
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.Properties.Resources.resources
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.csproj.GenerateResource.cache
@@ -31,4 +33,3 @@ C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.csproj.CopyComplete
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.exe
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.pdb
-C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.csproj.AssemblyReference.cache

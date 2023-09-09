@@ -27,6 +27,22 @@ namespace MyTwitchTools.ViewModels
             _accountStore = accountStore;
 
             NavigateChatCommand = new NavigateCommand<ChatViewModel>(chatNavigationService);
+
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+        }
+
+        private void OnCurrentAccountChanged()
+        {
+            OnPropertyChanged(nameof(Login));
+            OnPropertyChanged(nameof(Password));
+            OnPropertyChanged(nameof(WelcomeMessage));
+        }
+
+        public override void Dispose()
+        {
+            _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
+
+            base.Dispose();
         }
     }
 }
