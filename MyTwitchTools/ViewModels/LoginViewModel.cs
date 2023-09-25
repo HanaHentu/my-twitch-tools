@@ -37,7 +37,7 @@ namespace MyTwitchTools.ViewModels
             }
         }
 
-        public LoginViewModel(AccountStore accountStore, INavigationService<HomeViewModel> homeNavigationService)
+        public LoginViewModel(AccountStore accountStore, INavigationService homeNavigationService)
         {
             LoginCommand = new LoginCommand(this, accountStore, homeNavigationService);
         }

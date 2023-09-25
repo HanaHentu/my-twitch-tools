@@ -22,11 +22,11 @@ namespace MyTwitchTools.ViewModels
         public ICommand NavigateChatCommand { get; }
 
 
-        public HomeViewModel(AccountStore accountStore, INavigationService<ChatViewModel> chatNavigationService)
+        public HomeViewModel(AccountStore accountStore, INavigationService chatNavigationService)
         {
             _accountStore = accountStore;
 
-            NavigateChatCommand = new NavigateCommand<ChatViewModel>(chatNavigationService);
+            NavigateChatCommand = new NavigateCommand(chatNavigationService);
 
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }

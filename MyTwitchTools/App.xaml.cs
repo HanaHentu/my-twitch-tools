@@ -10,17 +10,20 @@ namespace MyTwitchTools
     {
         private readonly AccountStore _accountStore;
         private readonly NavigationStore _navigationStore;
+        private readonly UserThemeStore _userThemeStore;
 
         public App()
         {
             _accountStore = new AccountStore();
             _navigationStore = new NavigationStore();
+            _userThemeStore = new UserThemeStore();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            INavigationService<LoginViewModel> loginNavigationService = CreateLoginNavigationService();
+            INavigationService loginNavigationService = CreateLoginNavigationService();
             loginNavigationService.Navigate();
+            _userThemeStore.Load();
 
             MainWindow = new MainWindow()
             {
@@ -31,7 +34,7 @@ namespace MyTwitchTools
             base.OnStartup(e);
         }
 
-        private INavigationService<HomeViewModel> CreateHomeNavigationService()
+        private INavigationService CreateHomeNavigationService()
         {
             return new LayoutNavigationService<HomeViewModel>(
                 _navigationStore,
@@ -39,14 +42,14 @@ namespace MyTwitchTools
                 CreateNavigationBarViewModel);
         }
 
-        private INavigationService<LoginViewModel> CreateLoginNavigationService()
+        private INavigationService CreateLoginNavigationService()
         {
             return new NavigationService<LoginViewModel>(
                 _navigationStore,
                 () => new LoginViewModel(_accountStore, CreateHomeNavigationService()));
         }
 
-        private INavigationService<ChatViewModel> CreateChatNavigationService()
+        private INavigationService CreateChatNavigationService()
         {
             return new LayoutNavigationService<ChatViewModel>(
                 _navigationStore,
@@ -54,11 +57,11 @@ namespace MyTwitchTools
                 CreateNavigationBarViewModel);
         }
 
-        private INavigationService<SettingsViewModel> CreateSettingsNavigationService()
+        private INavigationService CreateSettingsNavigationService()
         {
             return new LayoutNavigationService<SettingsViewModel>(
                 _navigationStore,
-                () => new SettingsViewModel(),
+                () => new SettingsViewModel(_userThemeStore),
                 CreateNavigationBarViewModel);
         }
 
@@ -66,6 +69,7 @@ namespace MyTwitchTools
         {
             return new NavigationBarViewModel(
                             _accountStore,
+                            _userThemeStore,
                             CreateHomeNavigationService(),
                             CreateChatNavigationService(),
                             CreateLoginNavigationService(),

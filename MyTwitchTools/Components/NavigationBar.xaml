@@ -13,7 +13,10 @@
         </Style>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <hc:SideMenu Width="125" BorderThickness="1">
+    <hc:SideMenu
+        Width="125"
+        BorderThickness="1"
+        SideBrush="{Binding SideBrushColor}">
         <hc:SideMenuItem
             Command="{Binding NavigateHomeCommand}"
             CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"

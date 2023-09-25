@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\ColorAccentCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\LogoutCommand.cs" />
@@ -74,12 +76,15 @@
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\UserTheme.cs" />
+    <Compile Include="Services\CompositeNavigationService.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\LayoutNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\AccountStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="Stores\UserThemeStore.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />

@@ -12,13 +12,54 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Left">
-            <TextBlock
-                Margin="5"
-                Style="{StaticResource TextBlockTitleBold}"
-                Text="Theme" />
-            <Button Content="Open color picker" />
-        </StackPanel>
+
+        <TextBlock
+            Grid.Row="0"
+            Margin="15"
+            HorizontalAlignment="Left"
+            Style="{StaticResource TextBlockTitleBold}"
+            Text="THEME" />
+
+        <Border Grid.Row="1" Style="{StaticResource BorderHorizontallySplitter}" />
+
+        <hc:SimpleStackPanel
+            Grid.Row="1"
+            Margin="0,10"
+            Orientation="Horizontal">
+
+            <ComboBox
+                Margin="40,0,0,0"
+                hc:InfoElement.Title="Choose theme"
+                ItemsSource="{Binding ThemeOptions}"
+                SelectedItem="{Binding SelectedTheme}"
+                Style="{StaticResource ComboBoxExtend}" />
+
+            <Grid Margin="40,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    FontSize="12"
+                    Style="{StaticResource TextBlockSubTitle}"
+                    Text="Select color accent" />
+
+                <Button
+                    Grid.Row="1"
+                    Width="100"
+                    VerticalAlignment="Bottom"
+                    Background="{Binding BackgroundColor}"
+                    Command="{Binding ColorAccentCommand}" />
+            </Grid>
+
+        </hc:SimpleStackPanel>
+
+        <Border Grid.Row="2" Style="{StaticResource BorderHorizontallySplitter}" />
+
     </Grid>
 </UserControl>

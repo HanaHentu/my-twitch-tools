@@ -10,7 +10,7 @@
                 /MyTwitchTools;component/Fonts/FontAwesomeSolid900.otf#Font Awesome 6 Free Solid
             </FontFamily>
             <ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources AccentColor="LimeGreen" RequestedTheme="Dark" />
+                <hc:ThemeResources AccentColor="CadetBlue" RequestedTheme="Dark" />
                 <hc:Theme />
                 <!--  Other merged dictionaries here  -->
             </ResourceDictionary.MergedDictionaries>

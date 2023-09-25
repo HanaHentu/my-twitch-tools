@@ -15,9 +15,9 @@ namespace MyTwitchTools.ViewModels
         public string ExampleName => "There will be a chat!";
         public ICommand NavigateHomeCommand { get; }
 
-        public ChatViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public ChatViewModel(INavigationService homeNavigationService)
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
+            NavigateHomeCommand = new NavigateCommand(homeNavigationService);
         }
     }
 }

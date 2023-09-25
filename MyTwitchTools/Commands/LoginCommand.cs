@@ -14,9 +14,9 @@ namespace MyTwitchTools.Commands
     {
         private readonly LoginViewModel _viewModel;
         private readonly AccountStore _accountStore;
-        private readonly INavigationService<HomeViewModel> _navigationService;
+        private readonly INavigationService _navigationService;
 
-        public LoginCommand(LoginViewModel viewModel, AccountStore accountStore, INavigationService<HomeViewModel> navigationService)
+        public LoginCommand(LoginViewModel viewModel, AccountStore accountStore, INavigationService navigationService)
         {
             _viewModel = viewModel;
             _accountStore = accountStore;

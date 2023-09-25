@@ -18,7 +18,6 @@ C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\App.g.cs
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools_MarkupCompile.cache
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools_MarkupCompile.lref
-C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\App.baml
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Components\Layout.baml
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Components\NavigationBar.baml
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MainWindow.baml
@@ -33,3 +32,5 @@ C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.csproj.CopyComplete
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.exe
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.pdb
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.csproj.AssemblyReference.cache
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\App.baml

@@ -1,6 +1,7 @@
 ﻿using HandyControl.Controls;
 using HandyControl.Tools.Command;
 using MyTwitchTools.Commands;
+using MyTwitchTools.Properties;
 using MyTwitchTools.Services;
 using MyTwitchTools.Stores;
 using System;
@@ -9,12 +10,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MyTwitchTools.ViewModels
 {
     public class NavigationBarViewModel : ViewModelBase
     {
         private readonly AccountStore _accountStore;
+        private readonly UserThemeStore _userThemeStore;
+        public Brush SideBrushColor => new SolidColorBrush(_userThemeStore.CurrentUserTheme?.AccentColor ?? Colors.DodgerBlue);
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateChatCommand { get; }
         public ICommand NavigateLoginCommand { get; }
@@ -24,16 +28,18 @@ namespace MyTwitchTools.ViewModels
         public bool IsNotLoggedIn => !_accountStore.IsLoggedIn;
 
         public NavigationBarViewModel(AccountStore accountStore,
-            INavigationService<HomeViewModel> homeNavigationService,
-            INavigationService<ChatViewModel> chatNavigationService,
-            INavigationService<LoginViewModel> loginNavigationService,
-            INavigationService<SettingsViewModel> settingsNavigationService)
+            UserThemeStore userThemeStore,
+            INavigationService homeNavigationService,
+            INavigationService chatNavigationService,
+            INavigationService loginNavigationService,
+            INavigationService settingsNavigationService)
         {
             _accountStore = accountStore;
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
-            NavigateChatCommand = new NavigateCommand<ChatViewModel>(chatNavigationService);
-            NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
-            NavigateSettingsCommand = new NavigateCommand<SettingsViewModel>(settingsNavigationService);
+            _userThemeStore = userThemeStore;
+            NavigateHomeCommand = new NavigateCommand(homeNavigationService);
+            NavigateChatCommand = new NavigateCommand(chatNavigationService);
+            NavigateLoginCommand = new NavigateCommand(loginNavigationService);
+            NavigateSettingsCommand = new NavigateCommand(settingsNavigationService);
             LogoutCommand = new LogoutCommand(_accountStore);
 
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
