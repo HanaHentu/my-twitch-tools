@@ -34,3 +34,13 @@ C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.pdb
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\MyTwitchTools.csproj.AssemblyReference.cache
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\App.baml
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\System.Threading.Tasks.Extensions.xml

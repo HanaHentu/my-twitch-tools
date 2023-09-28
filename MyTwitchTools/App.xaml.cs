@@ -1,4 +1,5 @@
-﻿using MyTwitchTools.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MyTwitchTools.Services;
 using MyTwitchTools.Stores;
 using MyTwitchTools.ViewModels;
 using System;
@@ -8,72 +9,91 @@ namespace MyTwitchTools
 {
     public partial class App : Application
     {
-        private readonly AccountStore _accountStore;
-        private readonly NavigationStore _navigationStore;
-        private readonly UserThemeStore _userThemeStore;
+        private readonly IServiceProvider _serviceProvider;
 
         public App()
         {
-            _accountStore = new AccountStore();
-            _navigationStore = new NavigationStore();
-            _userThemeStore = new UserThemeStore();
+            IServiceCollection services = new ServiceCollection();
+
+            services.AddSingleton<AccountStore>();
+            services.AddSingleton<NavigationStore>();
+            services.AddSingleton<UserThemeStore>();
+
+            services.AddSingleton<INavigationService>(s => CreateLoginNavigationService(s));
+
+            services.AddTransient<HomeViewModel>(s => new HomeViewModel(
+                s.GetRequiredService<AccountStore>(),
+                CreateHomeNavigationService(s)));
+            services.AddTransient<LoginViewModel>(s => new LoginViewModel(
+                s.GetRequiredService<AccountStore>(),
+                CreateHomeNavigationService(s)));
+            services.AddTransient<ChatViewModel>(s => new ChatViewModel(CreateHomeNavigationService(s)));
+            services.AddTransient<SettingsViewModel>(s => new SettingsViewModel(s.GetRequiredService<UserThemeStore>()));
+            services.AddSingleton<NavigationBarViewModel>(CreateNavigationBarViewModel);
+            services.AddSingleton<MainViewModel>();
+
+            services.AddSingleton<MainWindow>(s => new MainWindow()
+            {
+                DataContext = s.GetRequiredService<MainViewModel>()
+            });
+
+            _serviceProvider = services.BuildServiceProvider();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            INavigationService loginNavigationService = CreateLoginNavigationService();
-            loginNavigationService.Navigate();
-            _userThemeStore.Load();
+            INavigationService initialNavigationService = _serviceProvider.GetRequiredService<INavigationService>();
+            initialNavigationService.Navigate();
+            _serviceProvider.GetRequiredService<UserThemeStore>().Load();
 
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(_navigationStore)
-            };
+            MainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             MainWindow.Show();
 
             base.OnStartup(e);
         }
 
-        private INavigationService CreateHomeNavigationService()
+        private INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
         {
             return new LayoutNavigationService<HomeViewModel>(
-                _navigationStore,
-                () => new HomeViewModel(_accountStore, CreateChatNavigationService()),
-                CreateNavigationBarViewModel);
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => new HomeViewModel(serviceProvider.GetRequiredService<AccountStore>(),
+                CreateChatNavigationService(serviceProvider)),
+                () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
         }
 
-        private INavigationService CreateLoginNavigationService()
+        private INavigationService CreateLoginNavigationService(IServiceProvider serviceProvider)
         {
             return new NavigationService<LoginViewModel>(
-                _navigationStore,
-                () => new LoginViewModel(_accountStore, CreateHomeNavigationService()));
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => new LoginViewModel(serviceProvider.GetRequiredService<AccountStore>(),
+                CreateHomeNavigationService(serviceProvider)));
         }
 
-        private INavigationService CreateChatNavigationService()
+        private INavigationService CreateChatNavigationService(IServiceProvider serviceProvider)
         {
             return new LayoutNavigationService<ChatViewModel>(
-                _navigationStore,
-                () => new ChatViewModel(CreateHomeNavigationService()),
-                CreateNavigationBarViewModel);
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => serviceProvider.GetRequiredService<ChatViewModel>(),
+                () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
         }
 
-        private INavigationService CreateSettingsNavigationService()
+        private INavigationService CreateSettingsNavigationService(IServiceProvider serviceProvider)
         {
             return new LayoutNavigationService<SettingsViewModel>(
-                _navigationStore,
-                () => new SettingsViewModel(_userThemeStore),
-                CreateNavigationBarViewModel);
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => new SettingsViewModel(serviceProvider.GetRequiredService<UserThemeStore>()),
+                () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
         }
 
-        private NavigationBarViewModel CreateNavigationBarViewModel()
+        private NavigationBarViewModel CreateNavigationBarViewModel(IServiceProvider serviceProvider)
         {
             return new NavigationBarViewModel(
-                            _accountStore,
-                            _userThemeStore,
-                            CreateHomeNavigationService(),
-                            CreateChatNavigationService(),
-                            CreateLoginNavigationService(),
-                            CreateSettingsNavigationService());
+                            serviceProvider.GetRequiredService<AccountStore>(),
+                            serviceProvider.GetRequiredService<UserThemeStore>(),
+                            CreateHomeNavigationService(serviceProvider),
+                            CreateChatNavigationService(serviceProvider),
+                            CreateLoginNavigationService(serviceProvider),
+                            CreateSettingsNavigationService(serviceProvider));
         }
     }
 }
