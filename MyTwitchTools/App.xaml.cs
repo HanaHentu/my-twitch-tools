@@ -23,13 +23,13 @@ namespace MyTwitchTools
 
             services.AddTransient<HomeViewModel>(s => new HomeViewModel(
                 s.GetRequiredService<AccountStore>(),
-                CreateHomeNavigationService(s)));
+                CreateChatNavigationService(s)));
             services.AddTransient<LoginViewModel>(s => new LoginViewModel(
                 s.GetRequiredService<AccountStore>(),
                 CreateHomeNavigationService(s)));
             services.AddTransient<ChatViewModel>(s => new ChatViewModel(CreateHomeNavigationService(s)));
             services.AddTransient<SettingsViewModel>(s => new SettingsViewModel(s.GetRequiredService<UserThemeStore>()));
-            services.AddSingleton<NavigationBarViewModel>(CreateNavigationBarViewModel);
+            services.AddTransient<NavigationBarViewModel>(CreateNavigationBarViewModel);
             services.AddSingleton<MainViewModel>();
 
             services.AddSingleton<MainWindow>(s => new MainWindow()
@@ -56,8 +56,7 @@ namespace MyTwitchTools
         {
             return new LayoutNavigationService<HomeViewModel>(
                 serviceProvider.GetRequiredService<NavigationStore>(),
-                () => new HomeViewModel(serviceProvider.GetRequiredService<AccountStore>(),
-                CreateChatNavigationService(serviceProvider)),
+                () => serviceProvider.GetRequiredService<HomeViewModel>(),
                 () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
         }
 
@@ -65,8 +64,7 @@ namespace MyTwitchTools
         {
             return new NavigationService<LoginViewModel>(
                 serviceProvider.GetRequiredService<NavigationStore>(),
-                () => new LoginViewModel(serviceProvider.GetRequiredService<AccountStore>(),
-                CreateHomeNavigationService(serviceProvider)));
+                () => serviceProvider.GetRequiredService<LoginViewModel>());
         }
 
         private INavigationService CreateChatNavigationService(IServiceProvider serviceProvider)
@@ -81,7 +79,7 @@ namespace MyTwitchTools
         {
             return new LayoutNavigationService<SettingsViewModel>(
                 serviceProvider.GetRequiredService<NavigationStore>(),
-                () => new SettingsViewModel(serviceProvider.GetRequiredService<UserThemeStore>()),
+                () => serviceProvider.GetRequiredService<SettingsViewModel>(),
                 () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
         }
 

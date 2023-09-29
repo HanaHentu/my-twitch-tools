@@ -43,6 +43,12 @@ namespace MyTwitchTools.ViewModels
             LogoutCommand = new LogoutCommand(_accountStore);
 
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+            _userThemeStore.CurrentThemeChanged += OnCurrentThemeChanged;
+        }
+
+        private void OnCurrentThemeChanged()
+        {
+            OnPropertyChanged(nameof(SideBrushColor));
         }
 
         private void OnCurrentAccountChanged()
@@ -53,6 +59,7 @@ namespace MyTwitchTools.ViewModels
         public override void Dispose()
         {
             _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
+            _userThemeStore.CurrentThemeChanged -= OnCurrentThemeChanged;
 
             base.Dispose();
         }
