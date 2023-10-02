@@ -19,7 +19,7 @@ namespace MyTwitchTools
             services.AddSingleton<NavigationStore>();
             services.AddSingleton<UserThemeStore>();
 
-            services.AddSingleton<INavigationService>(s => CreateLoginNavigationService(s));
+            services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
 
             services.AddTransient<HomeViewModel>(s => new HomeViewModel(
                 s.GetRequiredService<AccountStore>(),
@@ -62,9 +62,10 @@ namespace MyTwitchTools
 
         private INavigationService CreateLoginNavigationService(IServiceProvider serviceProvider)
         {
-            return new NavigationService<LoginViewModel>(
+            return new LayoutNavigationService<LoginViewModel>(
                 serviceProvider.GetRequiredService<NavigationStore>(),
-                () => serviceProvider.GetRequiredService<LoginViewModel>());
+                () => serviceProvider.GetRequiredService<LoginViewModel>(),
+                () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
         }
 
         private INavigationService CreateChatNavigationService(IServiceProvider serviceProvider)

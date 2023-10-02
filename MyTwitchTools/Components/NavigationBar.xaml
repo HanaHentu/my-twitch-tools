@@ -12,6 +12,7 @@
             <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid900}" />
         </Style>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <hc:Boolean2VisibilityReConverter x:Key="BooleanToVisibilityReConverter" />
     </UserControl.Resources>
     <hc:SideMenu
         Width="125"
@@ -37,7 +38,7 @@
             Command="{Binding NavigateLoginCommand}"
             CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"
             Header="Login"
-            Visibility="{Binding IsNotLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityReConverter}}">
             <hc:SideMenuItem.Icon>
                 <TextBlock Text="&#xf2f6;" />
             </hc:SideMenuItem.Icon>
@@ -45,7 +46,8 @@
         <hc:SideMenuItem
             Command="{Binding LogoutCommand}"
             CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"
-            Header="Logout">
+            Header="Logout"
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
             <hc:SideMenuItem.Icon>
                 <TextBlock Text="&#xf2f5;" />
             </hc:SideMenuItem.Icon>

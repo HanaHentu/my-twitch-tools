@@ -25,7 +25,7 @@ namespace MyTwitchTools.ViewModels
         public ICommand NavigateSettingsCommand { get; }
         public ICommand LogoutCommand { get; }
 
-        public bool IsNotLoggedIn => !_accountStore.IsLoggedIn;
+        public bool IsLoggedIn => _accountStore.IsLoggedIn;
 
         public NavigationBarViewModel(AccountStore accountStore,
             UserThemeStore userThemeStore,
@@ -53,7 +53,7 @@ namespace MyTwitchTools.ViewModels
 
         private void OnCurrentAccountChanged()
         {
-            OnPropertyChanged(nameof(IsNotLoggedIn));
+            OnPropertyChanged(nameof(IsLoggedIn));
         }
 
         public override void Dispose()
