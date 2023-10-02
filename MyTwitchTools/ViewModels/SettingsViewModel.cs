@@ -11,24 +11,18 @@ namespace MyTwitchTools.ViewModels
     {
         private readonly UserThemeStore _userThemeStore;
         public List<string> ThemeOptions { get; } = new List<string> { "Light", "Dark" };
-        public Brush BackgroundColor => new SolidColorBrush(_userThemeStore.CurrentUserTheme?.AccentColor ?? Colors.DodgerBlue);
-        public ICommand ColorAccentCommand { get; }
-
+        public Brush BackgroundColor => new SolidColorBrush(_userThemeStore?.AccentColor ?? Colors.DodgerBlue);
         private bool _isDarkTheme;
         public bool IsDarkTheme
         {
             get
             {
-                _isDarkTheme = _userThemeStore.CurrentUserTheme?.IsDarkTheme ?? false;
+                _isDarkTheme = _userThemeStore.IsDarkMode;
                 return _isDarkTheme;
             }
             set
-            {
-                if (_userThemeStore.CurrentUserTheme != null)
-                {
-                    _userThemeStore.CurrentUserTheme.IsDarkTheme = _isDarkTheme = value;
-                }
-                else _isDarkTheme = value;
+            {                
+                _userThemeStore.IsDarkMode = _isDarkTheme = value;
             }
         }
         public string SelectedTheme
@@ -36,24 +30,24 @@ namespace MyTwitchTools.ViewModels
             get => IsDarkTheme ? "Dark" : "Light";
             set
             {
-                _userThemeStore.CurrentUserTheme.IsDarkTheme = IsDarkTheme = value == "Dark";
-                ThemeManager.Current.ApplicationTheme = _userThemeStore.CurrentUserTheme.IsDarkTheme ? ApplicationTheme.Dark : ApplicationTheme.Light;
+                _userThemeStore.IsDarkMode = IsDarkTheme = value == "Dark";
                 _userThemeStore.SaveSettings();
             }
         }
 
+        public ICommand ColorAccentCommand { get; }
+
         public SettingsViewModel(UserThemeStore userThemeStore)
         {
             _userThemeStore = userThemeStore;
-            ColorAccentCommand = new ColorAccentCommand(userThemeStore, this);
+            ColorAccentCommand = new ColorAccentCommand(userThemeStore);
             _userThemeStore.CurrentThemeChanged += OnCurrentThemeChanged;
         }
 
         public void OnCurrentThemeChanged()
         {
-            OnPropertyChanged(nameof(BackgroundColor));
             OnPropertyChanged(nameof(IsDarkTheme));
-            OnPropertyChanged(nameof(SelectedTheme));
+            OnPropertyChanged(nameof(BackgroundColor));
         }
 
         public override void Dispose()

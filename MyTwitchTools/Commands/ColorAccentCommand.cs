@@ -11,19 +11,17 @@ namespace MyTwitchTools.Commands
 {
     public class ColorAccentCommand : CommandBase
     {
-        private readonly SettingsViewModel _viewModel;
         private readonly UserThemeStore _userThemeStore;
 
-        public ColorAccentCommand(UserThemeStore userThemeStore, SettingsViewModel viewModel)
+        public ColorAccentCommand(UserThemeStore userThemeStore)
         {
             _userThemeStore = userThemeStore;
-            _viewModel = viewModel;
         }
 
         public override void Execute(object parameter)
         {
             ColorPicker picker = SingleOpenHelper.CreateControl<ColorPicker>();
-            picker.SelectedBrush = new SolidColorBrush(_userThemeStore.CurrentUserTheme.AccentColor);
+            picker.SelectedBrush = new SolidColorBrush(_userThemeStore.AccentColor);
             PopupWindow window = new PopupWindow
             {
                 PopupElement = picker,
@@ -38,8 +36,7 @@ namespace MyTwitchTools.Commands
             picker.SelectedColorChanged += delegate (object sender, FunctionEventArgs<Color> e)
             {
                 ThemeManager.Current.AccentColor = new SolidColorBrush(e.Info);
-                _userThemeStore.CurrentUserTheme.AccentColor = e.Info;
-                _viewModel.OnCurrentThemeChanged();
+                _userThemeStore.AccentColor = e.Info;
             };
             picker.Confirmed += delegate
             {
@@ -49,7 +46,6 @@ namespace MyTwitchTools.Commands
             picker.Canceled += delegate
             {
                 _userThemeStore.Load();
-                _viewModel.OnCurrentThemeChanged();
                 window.Close();
             };
             window.Show();

@@ -18,7 +18,7 @@ namespace MyTwitchTools.ViewModels
     {
         private readonly AccountStore _accountStore;
         private readonly UserThemeStore _userThemeStore;
-        public Brush SideBrushColor => new SolidColorBrush(_userThemeStore.CurrentUserTheme?.AccentColor ?? Colors.DodgerBlue);
+        public Brush SideBrushColor => new SolidColorBrush(_userThemeStore?.AccentColor ?? Colors.DodgerBlue);
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateChatCommand { get; }
         public ICommand NavigateLoginCommand { get; }

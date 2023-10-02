@@ -9,13 +9,29 @@ namespace MyTwitchTools.Stores
 {
     public class UserThemeStore
     {
-        private UserTheme _currentUserTheme;
-        public UserTheme CurrentUserTheme
+        private bool _isDarkMode;
+        public bool IsDarkMode
         {
-            get => _currentUserTheme;
+            get
+            {
+                return _isDarkMode;
+            }
             set
             {
-                _currentUserTheme = value;
+                _isDarkMode = value;
+                CurrentThemeChanged?.Invoke();
+            }
+        }
+        private Color _accentColor;
+        public Color AccentColor
+        {
+            get
+            {
+                return _accentColor;
+            }
+            set
+            {
+                _accentColor = value;
                 CurrentThemeChanged?.Invoke();
             }
         }
@@ -24,29 +40,18 @@ namespace MyTwitchTools.Stores
 
         internal void SaveSettings()
         {
-            Settings.Default.accentColorTheme = MediaColorToDrawingColor(CurrentUserTheme.AccentColor);
-            Settings.Default.modeTheme = CurrentUserTheme.IsDarkTheme;
+            Settings.Default.accentColorTheme = MediaColorToDrawingColor(AccentColor);
+            Settings.Default.modeTheme = IsDarkMode;
             Settings.Default.Save();
+            Load();
         }
 
         internal void Load()
         {
-            if (CurrentUserTheme == null)
-            {
-                UserTheme userTheme = new UserTheme()
-                {
-                    AccentColor = DrawingColorToMediaColor(Settings.Default.accentColorTheme),
-                    IsDarkTheme = Settings.Default.modeTheme
-                };
-                CurrentUserTheme = userTheme;
-            }
-            else
-            {
-                CurrentUserTheme.AccentColor = DrawingColorToMediaColor(Settings.Default.accentColorTheme);
-                CurrentUserTheme.IsDarkTheme = Settings.Default.modeTheme;
-            }
-            ThemeManager.Current.AccentColor = new SolidColorBrush(CurrentUserTheme.AccentColor);
-            ThemeManager.Current.ApplicationTheme = CurrentUserTheme.IsDarkTheme ? ApplicationTheme.Dark : ApplicationTheme.Light;
+            IsDarkMode = Settings.Default.modeTheme;
+            AccentColor = DrawingColorToMediaColor(Settings.Default.accentColorTheme);
+            ThemeManager.Current.AccentColor = new SolidColorBrush(AccentColor);
+            ThemeManager.Current.ApplicationTheme = IsDarkMode ? ApplicationTheme.Dark : ApplicationTheme.Light;
         }
 
         internal Color DrawingColorToMediaColor(System.Drawing.Color selectedColor)
