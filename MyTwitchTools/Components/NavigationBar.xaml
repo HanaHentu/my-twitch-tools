@@ -27,6 +27,14 @@
             </hc:SideMenuItem.Icon>
         </hc:SideMenuItem>
         <hc:SideMenuItem
+            Command="{Binding NavigateAccountsListingCommand}"
+            CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"
+            Header="Accounts">
+            <hc:SideMenuItem.Icon>
+                <TextBlock Text="&#xf0c0;" />
+            </hc:SideMenuItem.Icon>
+        </hc:SideMenuItem>
+        <hc:SideMenuItem
             Command="{Binding NavigateChatCommand}"
             CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"
             Header="Chat">

@@ -14,19 +14,29 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <TextBlock
             Grid.Row="0"
-            Margin="15"
+            FontSize="{StaticResource LargeFontSize}"
+            Text="Settings" />
+
+        <Border
+            Grid.Row="1"
+            Margin="0,10"
+            Style="{StaticResource BorderHorizontallySplitter}" />
+
+        <TextBlock
+            Grid.Row="2"
+            Margin="20,0"
             HorizontalAlignment="Left"
             Style="{StaticResource TextBlockTitleBold}"
             Text="THEME" />
 
-        <Border Grid.Row="1" Style="{StaticResource BorderHorizontallySplitter}" />
-
         <hc:SimpleStackPanel
-            Grid.Row="1"
+            Grid.Row="3"
             Margin="0,10"
             Orientation="Horizontal">
 
@@ -46,12 +56,13 @@
                 <TextBlock
                     Grid.Row="0"
                     FontSize="12"
+                    HorizontalAlignment="Right"
                     Style="{StaticResource TextBlockSubTitle}"
                     Text="Select color accent" />
 
                 <Button
                     Grid.Row="1"
-                    Width="100"
+                    Width="110"
                     VerticalAlignment="Bottom"
                     Background="{Binding BackgroundColor}"
                     Command="{Binding ColorAccentCommand}" />
@@ -59,7 +70,10 @@
 
         </hc:SimpleStackPanel>
 
-        <Border Grid.Row="2" Style="{StaticResource BorderHorizontallySplitter}" />
+        <Border
+            Grid.Row="4"
+            Margin="0,10"
+            Style="{StaticResource BorderHorizontallySplitter}" />
 
     </Grid>
 </UserControl>

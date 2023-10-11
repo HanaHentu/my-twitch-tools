@@ -19,6 +19,12 @@
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomeView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AccountsListingViewModel}">
+                <views:AccountsListingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AddAccountViewModel}">
+                <views:AddAccountView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:ChatViewModel}">
                 <views:ChatView />
             </DataTemplate>

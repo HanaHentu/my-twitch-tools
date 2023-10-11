@@ -20,6 +20,7 @@ namespace MyTwitchTools.ViewModels
         private readonly UserThemeStore _userThemeStore;
         public Brush SideBrushColor => new SolidColorBrush(_userThemeStore?.AccentColor ?? Colors.DodgerBlue);
         public ICommand NavigateHomeCommand { get; }
+        public ICommand NavigateAccountsListingCommand { get; }
         public ICommand NavigateChatCommand { get; }
         public ICommand NavigateLoginCommand { get; }
         public ICommand NavigateSettingsCommand { get; }
@@ -30,6 +31,7 @@ namespace MyTwitchTools.ViewModels
         public NavigationBarViewModel(AccountStore accountStore,
             UserThemeStore userThemeStore,
             INavigationService homeNavigationService,
+            INavigationService accountsListingNavigationService,
             INavigationService chatNavigationService,
             INavigationService loginNavigationService,
             INavigationService settingsNavigationService)
@@ -37,6 +39,7 @@ namespace MyTwitchTools.ViewModels
             _accountStore = accountStore;
             _userThemeStore = userThemeStore;
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
+            NavigateAccountsListingCommand = new NavigateCommand(accountsListingNavigationService);
             NavigateChatCommand = new NavigateCommand(chatNavigationService);
             NavigateLoginCommand = new NavigateCommand(loginNavigationService);
             NavigateSettingsCommand = new NavigateCommand(settingsNavigationService);

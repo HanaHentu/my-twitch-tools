@@ -44,3 +44,7 @@ C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\Microsoft.Ext
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\AddAccountView.g.cs
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\AddAccountView.baml
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\AccountsListingView.g.cs
+C:\Users\Mokkun\source\repos\MyTwitchTools\MyTwitchTools\obj\Debug\Views\AccountsListingView.baml

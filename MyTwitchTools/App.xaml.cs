@@ -27,6 +27,8 @@ namespace MyTwitchTools
             services.AddTransient<LoginViewModel>(s => new LoginViewModel(
                 s.GetRequiredService<AccountStore>(),
                 CreateHomeNavigationService(s)));
+            services.AddTransient<AccountsListingViewModel>(s => new AccountsListingViewModel(CreateAddAccountNavigationService(s)));
+            services.AddTransient<AddAccountViewModel>(s => new AddAccountViewModel());
             services.AddTransient<ChatViewModel>(s => new ChatViewModel(CreateHomeNavigationService(s)));
             services.AddTransient<SettingsViewModel>(s => new SettingsViewModel(s.GetRequiredService<UserThemeStore>()));
             services.AddTransient<NavigationBarViewModel>(CreateNavigationBarViewModel);
@@ -60,6 +62,22 @@ namespace MyTwitchTools
                 () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
         }
 
+        private INavigationService CreateAccountsListingNavigationService(IServiceProvider serviceProvider)
+        {
+            return new LayoutNavigationService<AccountsListingViewModel>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => serviceProvider.GetRequiredService<AccountsListingViewModel>(),
+                () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
+        }
+
+        private INavigationService CreateAddAccountNavigationService(IServiceProvider serviceProvider)
+        {
+            return new LayoutNavigationService<AddAccountViewModel>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => serviceProvider.GetRequiredService<AddAccountViewModel>(),
+                () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
+        }
+
         private INavigationService CreateLoginNavigationService(IServiceProvider serviceProvider)
         {
             return new LayoutNavigationService<LoginViewModel>(
@@ -90,6 +108,7 @@ namespace MyTwitchTools
                             serviceProvider.GetRequiredService<AccountStore>(),
                             serviceProvider.GetRequiredService<UserThemeStore>(),
                             CreateHomeNavigationService(serviceProvider),
+                            CreateAccountsListingNavigationService(serviceProvider),
                             CreateChatNavigationService(serviceProvider),
                             CreateLoginNavigationService(serviceProvider),
                             CreateSettingsNavigationService(serviceProvider));
