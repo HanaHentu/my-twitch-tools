@@ -13,36 +13,15 @@ namespace MyTwitchTools.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        private readonly AccountStore _accountStore;
-
-        public string Login => _accountStore.CurrentAccount?.Login;
-        public string Password => _accountStore.CurrentAccount?.Password;
-        public string WelcomeMessage => $"Welcome {Login} to my application.";
+        public string WelcomeMessage => $"Welcome to my application.";
 
         public ICommand NavigateChatCommand { get; }
 
 
-        public HomeViewModel(AccountStore accountStore, INavigationService chatNavigationService)
+        public HomeViewModel(INavigationService chatNavigationService)
         {
-            _accountStore = accountStore;
 
             NavigateChatCommand = new NavigateCommand(chatNavigationService);
-
-            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
-        }
-
-        private void OnCurrentAccountChanged()
-        {
-            OnPropertyChanged(nameof(Login));
-            OnPropertyChanged(nameof(Password));
-            OnPropertyChanged(nameof(WelcomeMessage));
-        }
-
-        public override void Dispose()
-        {
-            _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
-
-            base.Dispose();
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MyTwitchTools.Commands;
+using MyTwitchTools.Services;
+using MyTwitchTools.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,15 +23,32 @@ namespace MyTwitchTools.ViewModels
             {
                 _login = value;
                 OnPropertyChanged(nameof(Login));
+                CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        private string _password;
+        public string Password
+        {
+            get
+            {
+                return _password;
+            }
+            set
+            {
+                _password = value;
+                OnPropertyChanged(nameof(Password));
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public AddAccountViewModel()
+        public AddAccountViewModel(AccountsStore accountsStore, INavigationService closeNavigationService)
         {
-
+            SubmitCommand = new AddAccountCommand(this, accountsStore, closeNavigationService);
+            CancelCommand = new NavigateCommand(closeNavigationService);
         }
     }
 }

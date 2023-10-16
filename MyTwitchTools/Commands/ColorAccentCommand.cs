@@ -22,17 +22,7 @@ namespace MyTwitchTools.Commands
         {
             ColorPicker picker = SingleOpenHelper.CreateControl<ColorPicker>();
             picker.SelectedBrush = new SolidColorBrush(_userThemeStore.AccentColor);
-            PopupWindow window = new PopupWindow
-            {
-                PopupElement = picker,
-                BorderThickness = new Thickness(0),
-                AllowsTransparency = true,
-                WindowStyle = WindowStyle.None,
-                MinWidth = 0,
-                MinHeight = 0,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                Title = "Select Accent Color"
-            };
+            var dialog = Dialog.Show(picker);
             picker.SelectedColorChanged += delegate (object sender, FunctionEventArgs<Color> e)
             {
                 ThemeManager.Current.AccentColor = new SolidColorBrush(e.Info);
@@ -41,14 +31,13 @@ namespace MyTwitchTools.Commands
             picker.Confirmed += delegate
             {
                 _userThemeStore.SaveSettings();
-                window.Close();
+                dialog.Close();
             };
             picker.Canceled += delegate
             {
                 _userThemeStore.Load();
-                window.Close();
+                dialog.Close();
             };
-            window.Show();
         }
     }
 }

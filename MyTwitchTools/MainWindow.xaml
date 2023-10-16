@@ -14,8 +14,8 @@
     Height="450"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <ContentControl Content="{Binding CurrentViewModel}">
-        <ContentControl.Resources>
+    <Grid>
+        <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomeView />
             </DataTemplate>
@@ -28,15 +28,18 @@
             <DataTemplate DataType="{x:Type viewmodels:ChatViewModel}">
                 <views:ChatView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                <views:LoginView />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
                 <views:SettingsView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                 <components:Layout />
             </DataTemplate>
-        </ContentControl.Resources>
-    </ContentControl>
+        </Grid.Resources>
+
+        <hc:DialogContainer Panel.ZIndex="100" hc:Dialog.Token="DialogContainer">
+            <ContentControl Content="{Binding CurrentDialogViewModel}" />
+        </hc:DialogContainer>
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
 </hc:Window>

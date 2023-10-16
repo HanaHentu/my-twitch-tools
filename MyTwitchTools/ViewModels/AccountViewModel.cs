@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyTwitchTools.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,11 @@ namespace MyTwitchTools.ViewModels
 {
     public class AccountViewModel : ViewModelBase
     {
-        public string Login { get; }
+        public Account Account { get; }
 
-        public AccountViewModel(string login)
+        public AccountViewModel(Account account)
         {
-            Login = login;
+            Account = account;
         }
     }
 }

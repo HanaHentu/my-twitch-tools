@@ -15,20 +15,23 @@ namespace MyTwitchTools
         {
             IServiceCollection services = new ServiceCollection();
 
-            services.AddSingleton<AccountStore>();
+            services.AddSingleton<AccountsStore>();
             services.AddSingleton<NavigationStore>();
+            services.AddSingleton<DialogNavigationStore>();
             services.AddSingleton<UserThemeStore>();
 
             services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
+            services.AddSingleton<CloseDialogNavigationService>();
 
             services.AddTransient<HomeViewModel>(s => new HomeViewModel(
-                s.GetRequiredService<AccountStore>(),
                 CreateChatNavigationService(s)));
-            services.AddTransient<LoginViewModel>(s => new LoginViewModel(
-                s.GetRequiredService<AccountStore>(),
-                CreateHomeNavigationService(s)));
-            services.AddTransient<AccountsListingViewModel>(s => new AccountsListingViewModel(CreateAddAccountNavigationService(s)));
-            services.AddTransient<AddAccountViewModel>(s => new AddAccountViewModel());
+            services.AddTransient<AccountsListingViewModel>(s => new AccountsListingViewModel(
+                s.GetRequiredService<AccountsStore>(),
+                CreateAddAccountNavigationService(s)));
+            services.AddTransient<AddAccountViewModel>(s => new AddAccountViewModel(
+                s.GetRequiredService<AccountsStore>(),
+                s.GetRequiredService<CloseDialogNavigationService>()
+                ));
             services.AddTransient<ChatViewModel>(s => new ChatViewModel(CreateHomeNavigationService(s)));
             services.AddTransient<SettingsViewModel>(s => new SettingsViewModel(s.GetRequiredService<UserThemeStore>()));
             services.AddTransient<NavigationBarViewModel>(CreateNavigationBarViewModel);
@@ -72,19 +75,21 @@ namespace MyTwitchTools
 
         private INavigationService CreateAddAccountNavigationService(IServiceProvider serviceProvider)
         {
-            return new LayoutNavigationService<AddAccountViewModel>(
-                serviceProvider.GetRequiredService<NavigationStore>(),
-                () => serviceProvider.GetRequiredService<AddAccountViewModel>(),
-                () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
+            return new DialogNavigationService<AddAccountViewModel>(
+                serviceProvider.GetRequiredService<DialogNavigationStore>(),
+                () => serviceProvider.GetRequiredService<AddAccountViewModel>());
         }
 
-        private INavigationService CreateLoginNavigationService(IServiceProvider serviceProvider)
+        /*private AddAccountViewModel CreateAddAccountViewModel(IServiceProvider serviceProvider)
         {
-            return new LayoutNavigationService<LoginViewModel>(
-                serviceProvider.GetRequiredService<NavigationStore>(),
-                () => serviceProvider.GetRequiredService<LoginViewModel>(),
-                () => serviceProvider.GetRequiredService<NavigationBarViewModel>());
-        }
+            CompositeNavigationService navigationService = new CompositeNavigationService(
+                serviceProvider.GetRequiredService<CloseDialogNavigationService>(),
+                CreateAccountsListingNavigationService(serviceProvider));
+
+            return new AddAccountViewModel(
+                serviceProvider.GetRequiredService<CloseDialogNavigationService>(),
+                navigationService);
+        }*/
 
         private INavigationService CreateChatNavigationService(IServiceProvider serviceProvider)
         {
@@ -105,12 +110,10 @@ namespace MyTwitchTools
         private NavigationBarViewModel CreateNavigationBarViewModel(IServiceProvider serviceProvider)
         {
             return new NavigationBarViewModel(
-                            serviceProvider.GetRequiredService<AccountStore>(),
                             serviceProvider.GetRequiredService<UserThemeStore>(),
                             CreateHomeNavigationService(serviceProvider),
                             CreateAccountsListingNavigationService(serviceProvider),
                             CreateChatNavigationService(serviceProvider),
-                            CreateLoginNavigationService(serviceProvider),
                             CreateSettingsNavigationService(serviceProvider));
         }
     }

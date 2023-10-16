@@ -47,10 +47,11 @@
         <ListView
             Grid.Row="1"
             Margin="0,20,0,0"
-            ItemsSource="{Binding Accounts}">
+            ItemsSource="{Binding Accounts}"
+            SelectedItem="{Binding SelectedAccount}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Login}" Header="Login" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Account.Login}" Header="Login" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -16,36 +16,25 @@ namespace MyTwitchTools.ViewModels
 {
     public class NavigationBarViewModel : ViewModelBase
     {
-        private readonly AccountStore _accountStore;
         private readonly UserThemeStore _userThemeStore;
         public Brush SideBrushColor => new SolidColorBrush(_userThemeStore?.AccentColor ?? Colors.DodgerBlue);
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateAccountsListingCommand { get; }
         public ICommand NavigateChatCommand { get; }
-        public ICommand NavigateLoginCommand { get; }
         public ICommand NavigateSettingsCommand { get; }
-        public ICommand LogoutCommand { get; }
 
-        public bool IsLoggedIn => _accountStore.IsLoggedIn;
-
-        public NavigationBarViewModel(AccountStore accountStore,
-            UserThemeStore userThemeStore,
+        public NavigationBarViewModel(UserThemeStore userThemeStore,
             INavigationService homeNavigationService,
             INavigationService accountsListingNavigationService,
             INavigationService chatNavigationService,
-            INavigationService loginNavigationService,
             INavigationService settingsNavigationService)
         {
-            _accountStore = accountStore;
             _userThemeStore = userThemeStore;
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateAccountsListingCommand = new NavigateCommand(accountsListingNavigationService);
             NavigateChatCommand = new NavigateCommand(chatNavigationService);
-            NavigateLoginCommand = new NavigateCommand(loginNavigationService);
             NavigateSettingsCommand = new NavigateCommand(settingsNavigationService);
-            LogoutCommand = new LogoutCommand(_accountStore);
 
-            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
             _userThemeStore.CurrentThemeChanged += OnCurrentThemeChanged;
         }
 
@@ -54,14 +43,8 @@ namespace MyTwitchTools.ViewModels
             OnPropertyChanged(nameof(SideBrushColor));
         }
 
-        private void OnCurrentAccountChanged()
-        {
-            OnPropertyChanged(nameof(IsLoggedIn));
-        }
-
         public override void Dispose()
         {
-            _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
             _userThemeStore.CurrentThemeChanged -= OnCurrentThemeChanged;
 
             base.Dispose();

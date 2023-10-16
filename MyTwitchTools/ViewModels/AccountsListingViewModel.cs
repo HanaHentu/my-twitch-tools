@@ -1,5 +1,7 @@
 ﻿using MyTwitchTools.Commands;
+using MyTwitchTools.Models;
 using MyTwitchTools.Services;
+using MyTwitchTools.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,19 +14,36 @@ namespace MyTwitchTools.ViewModels
 {
     public class AccountsListingViewModel : ViewModelBase
     {
-        private readonly ObservableCollection<AccountViewModel> _accounts;
-        public IEnumerable<AccountViewModel> Accounts => _accounts;
-        public ICommand AddAccountCommand { get; }
+        private readonly AccountsStore _accountsStore;
 
-        public AccountsListingViewModel(INavigationService addAccountNavigationService)
+        private AccountViewModel _selectedAccount;
+        public AccountViewModel SelectedAccount
         {
+            get
+            {
+                return _selectedAccount;
+            }
+            set
+            {
+                if (_selectedAccount != value)
+                {
+                    _selectedAccount = value;
+                    OnPropertyChanged(nameof(SelectedAccount));
+                }
+            }
+        }
+
+        public IEnumerable<AccountViewModel> Accounts => _accountsStore.Accounts;
+
+        public ICommand AddAccountCommand { get; }
+        public ICommand RemoveAccountCommand { get; }
+
+        public AccountsListingViewModel(AccountsStore accountsStore, INavigationService addAccountNavigationService)
+        {
+            _accountsStore = accountsStore;
+
             AddAccountCommand = new NavigateCommand(addAccountNavigationService);
-
-            _accounts = new ObservableCollection<AccountViewModel>();
-
-            _accounts.Add(new AccountViewModel("Hentu"));
-            _accounts.Add(new AccountViewModel("Lily"));
-            _accounts.Add(new AccountViewModel("Xavick"));
+            RemoveAccountCommand = new RemoveAccountCommand(this, accountsStore);
         }
     }
 }
