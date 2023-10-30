@@ -3,8 +3,6 @@ using HandyControl.Data;
 using HandyControl.Themes;
 using HandyControl.Tools;
 using MyTwitchTools.Stores;
-using MyTwitchTools.ViewModels;
-using System.Windows;
 using System.Windows.Media;
 
 namespace MyTwitchTools.Commands

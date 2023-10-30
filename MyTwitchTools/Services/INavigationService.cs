@@ -1,6 +1,4 @@
-﻿using MyTwitchTools.ViewModels;
-
-namespace MyTwitchTools.Services
+﻿namespace MyTwitchTools.Services
 {
     public interface INavigationService
     {

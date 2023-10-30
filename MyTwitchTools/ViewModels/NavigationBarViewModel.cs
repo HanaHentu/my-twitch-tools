@@ -1,14 +1,6 @@
-﻿using HandyControl.Controls;
-using HandyControl.Tools.Command;
-using MyTwitchTools.Commands;
-using MyTwitchTools.Properties;
+﻿using MyTwitchTools.Commands;
 using MyTwitchTools.Services;
 using MyTwitchTools.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 

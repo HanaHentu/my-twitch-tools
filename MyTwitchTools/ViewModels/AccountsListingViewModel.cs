@@ -1,13 +1,7 @@
 ﻿using MyTwitchTools.Commands;
-using MyTwitchTools.Models;
 using MyTwitchTools.Services;
 using MyTwitchTools.Stores;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MyTwitchTools.ViewModels

@@ -1,5 +1,4 @@
-﻿using HandyControl.Themes;
-using MyTwitchTools.Commands;
+﻿using MyTwitchTools.Commands;
 using MyTwitchTools.Stores;
 using System.Collections.Generic;
 using System.Windows.Input;

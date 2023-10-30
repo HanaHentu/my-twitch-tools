@@ -1,8 +1,6 @@
 ﻿using HandyControl.Themes;
-using MyTwitchTools.Models;
 using MyTwitchTools.Properties;
 using System;
-using System.ComponentModel;
 using System.Windows.Media;
 
 namespace MyTwitchTools.Stores
