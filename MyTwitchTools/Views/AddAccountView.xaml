@@ -29,7 +29,7 @@
                 Margin="0,5"
                 VerticalAlignment="Center"
                 hc:InfoElement.Title="Login"
-                Text="{Binding Login}" />
+                Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
 
             <hc:TextBox
                 Grid.Row="1"
@@ -37,7 +37,7 @@
                 Margin="0,5"
                 VerticalAlignment="Center"
                 hc:InfoElement.Title="Password"
-                Text="{Binding Password}" />
+                Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
 
             <Grid
                 Grid.Row="2"

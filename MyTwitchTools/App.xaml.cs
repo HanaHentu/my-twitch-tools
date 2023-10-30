@@ -80,17 +80,6 @@ namespace MyTwitchTools
                 () => serviceProvider.GetRequiredService<AddAccountViewModel>());
         }
 
-        /*private AddAccountViewModel CreateAddAccountViewModel(IServiceProvider serviceProvider)
-        {
-            CompositeNavigationService navigationService = new CompositeNavigationService(
-                serviceProvider.GetRequiredService<CloseDialogNavigationService>(),
-                CreateAccountsListingNavigationService(serviceProvider));
-
-            return new AddAccountViewModel(
-                serviceProvider.GetRequiredService<CloseDialogNavigationService>(),
-                navigationService);
-        }*/
-
         private INavigationService CreateChatNavigationService(IServiceProvider serviceProvider)
         {
             return new LayoutNavigationService<ChatViewModel>(

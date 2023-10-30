@@ -23,7 +23,6 @@ namespace MyTwitchTools.ViewModels
             {
                 _login = value;
                 OnPropertyChanged(nameof(Login));
-                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -38,7 +37,6 @@ namespace MyTwitchTools.ViewModels
             {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
-                CommandManager.InvalidateRequerySuggested();
             }
         }
 
