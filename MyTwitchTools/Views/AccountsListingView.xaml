@@ -9,6 +9,12 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <hc:Boolean2StringConverter x:Key="Boolean2StringConverter" />
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -21,6 +27,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
             <TextBlock
@@ -31,17 +38,26 @@
                 Grid.Column="2"
                 VerticalAlignment="Center"
                 hc:BorderElement.CornerRadius="15"
-                Command="{Binding AddAccountCommand}"
-                Content="Add"
-                Style="{StaticResource ButtonPrimary}" />
+                Command="{Binding ToggleAccountStateCommand}"
+                Content="{Binding SelectedAccount.Account.IsActivated, Converter={StaticResource Boolean2StringConverter}, ConverterParameter='Activate;Deactivate'}"
+                Style="{StaticResource ButtonPrimary}"
+                Visibility="{Binding IsAccountSelected, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <Button
                 Grid.Column="3"
                 Margin="15,0,0,0"
                 VerticalAlignment="Center"
                 hc:BorderElement.CornerRadius="15"
+                Command="{Binding AddAccountCommand}"
+                Content="Add"
+                Style="{StaticResource ButtonSuccess}" />
+            <Button
+                Grid.Column="4"
+                Margin="15,0,0,0"
+                VerticalAlignment="Center"
+                hc:BorderElement.CornerRadius="15"
                 Command="{Binding RemoveAccountCommand}"
                 Content="Remove"
-                Style="{StaticResource ButtonPrimary}" />
+                Style="{StaticResource ButtonDanger}" />
         </Grid>
 
         <ListView
@@ -52,6 +68,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Account.Login}" Header="Login" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Account.IsActivated, Converter={StaticResource Boolean2StringConverter}, ConverterParameter='Inactive;Active'}" Header="Status" />
                 </GridView>
             </ListView.View>
         </ListView>

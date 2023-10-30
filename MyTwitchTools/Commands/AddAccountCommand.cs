@@ -31,7 +31,8 @@ namespace MyTwitchTools.Commands
             Account account = new Account()
             {
                 Login = _addAccountViewModel.Login,
-                Password = _addAccountViewModel.Password
+                Password = _addAccountViewModel.Password,
+                IsActivated = _addAccountViewModel.IsActivated
             };
 
             _accountsStore.AddAccount(account);

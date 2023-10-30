@@ -84,6 +84,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\RemoveAccountCommand.cs" />
+    <Compile Include="Commands\ToggleAccountStateCommand.cs" />
     <Compile Include="Components\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>

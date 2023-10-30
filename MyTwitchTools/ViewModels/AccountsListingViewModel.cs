@@ -2,6 +2,7 @@
 using MyTwitchTools.Services;
 using MyTwitchTools.Stores;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace MyTwitchTools.ViewModels
@@ -23,14 +24,27 @@ namespace MyTwitchTools.ViewModels
                 {
                     _selectedAccount = value;
                     OnPropertyChanged(nameof(SelectedAccount));
+                    OnPropertyChanged(nameof(IsAccountSelected));
                 }
             }
         }
 
-        public IEnumerable<AccountViewModel> Accounts => _accountsStore.Accounts;
+        public bool IsAccountSelected => SelectedAccount != null;
+
+        private IEnumerable<AccountViewModel> _accounts;
+        public IEnumerable<AccountViewModel> Accounts
+        {
+            get => _accounts;
+            set
+            {
+                _accounts = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand AddAccountCommand { get; }
         public ICommand RemoveAccountCommand { get; }
+        public ICommand ToggleAccountStateCommand { get; }
 
         public AccountsListingViewModel(AccountsStore accountsStore, INavigationService addAccountNavigationService)
         {
@@ -38,6 +52,22 @@ namespace MyTwitchTools.ViewModels
 
             AddAccountCommand = new NavigateCommand(addAccountNavigationService);
             RemoveAccountCommand = new RemoveAccountCommand(this, accountsStore);
+            ToggleAccountStateCommand = new ToggleAccountStateCommand(this, accountsStore);
+
+            _accountsStore.AccountStatusChanged += OnAccountStatusChanged;
+            Accounts = new ObservableCollection<AccountViewModel>(_accountsStore.Accounts);
+        }
+
+        private void OnAccountStatusChanged()
+        {
+            Accounts = new ObservableCollection<AccountViewModel>(_accountsStore.Accounts);
+        }
+
+        public override void Dispose()
+        {
+            _accountsStore.AccountStatusChanged -= OnAccountStatusChanged;
+
+            base.Dispose();
         }
     }
 }

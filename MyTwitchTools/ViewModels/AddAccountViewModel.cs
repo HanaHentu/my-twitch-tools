@@ -35,6 +35,20 @@ namespace MyTwitchTools.ViewModels
             }
         }
 
+        private bool _isActivated = true;
+        public bool IsActivated
+        {
+            get
+            {
+                return _isActivated;
+            }
+            set
+            {
+                _isActivated = value;
+                OnPropertyChanged(nameof(IsActivated));
+            }
+        }
+
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
