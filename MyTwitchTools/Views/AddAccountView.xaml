@@ -13,9 +13,11 @@
         Width="200"
         Height="220"
         Background="{DynamicResource RegionBrush}"
-        BorderBrush="White"
         BorderThickness="1"
         CornerRadius="10">
+        <Border.BorderBrush>
+            <SolidColorBrush Color="{DynamicResource BorderColor}" />
+        </Border.BorderBrush>
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />

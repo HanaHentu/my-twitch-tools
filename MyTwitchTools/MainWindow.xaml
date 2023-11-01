@@ -10,8 +10,8 @@
     xmlns:viewmodels="clr-namespace:MyTwitchTools.ViewModels"
     xmlns:views="clr-namespace:MyTwitchTools.Views"
     Title="Twitch Tools"
-    Width="800"
-    Height="450"
+    Width="1200"
+    Height="650"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
