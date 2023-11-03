@@ -19,6 +19,7 @@ namespace MyTwitchTools
             services.AddSingleton<NavigationStore>();
             services.AddSingleton<DialogNavigationStore>();
             services.AddSingleton<UserThemeStore>();
+            services.AddSingleton<ChatMessagesStore>();
 
             services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
             services.AddSingleton<CloseDialogNavigationService>();
@@ -32,7 +33,11 @@ namespace MyTwitchTools
                 s.GetRequiredService<AccountsStore>(),
                 s.GetRequiredService<CloseDialogNavigationService>()
                 ));
-            services.AddTransient<ChatViewModel>(s => new ChatViewModel(CreateHomeNavigationService(s)));
+            services.AddTransient<ChatViewModel>(s => new ChatViewModel(
+                s.GetRequiredService<ChatMessagesStore>(),
+                s.GetRequiredService<AccountsStore>(),
+                CreateHomeNavigationService(s)
+                ));
             services.AddTransient<SettingsViewModel>(s => new SettingsViewModel(s.GetRequiredService<UserThemeStore>()));
             services.AddTransient<NavigationBarViewModel>(CreateNavigationBarViewModel);
             services.AddSingleton<MainViewModel>();

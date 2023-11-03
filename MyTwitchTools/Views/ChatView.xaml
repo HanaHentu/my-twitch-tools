@@ -33,11 +33,25 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" CornerRadius="10,10,0,0">
+                <!--<ListBox
+                    Name="ListBoxChat"
+                    ScrollViewer.CanContentScroll="False"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    Style="{StaticResource StackPanelVerticalListBox}"
+                    ItemsSource="{Binding Accounts}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>-->
+
+                <Border Grid.Row="1" CornerRadius="10,10,0,0">
                     <Border.Background>
                         <SolidColorBrush Color="{DynamicResource ThirdlyRegionColor}" />
                     </Border.Background>
@@ -58,7 +72,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1">
+                <Border Grid.Row="2">
                     <Border.Background>
                         <SolidColorBrush Color="{DynamicResource RegionColor}" />
                     </Border.Background>
@@ -79,7 +93,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="2">
+                <Border Grid.Row="3">
                     <Border.Background>
                         <SolidColorBrush Color="{DynamicResource ThirdlyRegionColor}" />
                     </Border.Background>
@@ -101,7 +115,7 @@
                 </Border>
 
                 <Border
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Height="50"
                     CornerRadius="0,0,10,10">
                     <Border.Background>
@@ -115,10 +129,10 @@
                         <hc:ComboBox
                             Grid.Column="0"
                             HorizontalAlignment="Left"
-                            SelectedIndex="0">
-                            <ComboBoxItem Content="Hentu" />
-                            <ComboBoxItem Content="Lily" />
-                        </hc:ComboBox>
+                            DisplayMemberPath="Account.Login"
+                            ItemsSource="{Binding Accounts}"
+                            SelectedIndex="0"
+                            SelectedItem="{Binding SelectedAccount}" />
                         <hc:TextBox
                             Grid.Column="1"
                             Margin="5,0,0,0"

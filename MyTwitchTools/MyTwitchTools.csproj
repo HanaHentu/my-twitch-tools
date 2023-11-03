@@ -92,6 +92,7 @@
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Services\CloseDialogNavigationService.cs" />
     <Compile Include="Services\CompositeNavigationService.cs" />
     <Compile Include="Services\DialogNavigationService.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\AccountsStore.cs" />
+    <Compile Include="Stores\ChatMessagesStore.cs" />
     <Compile Include="Stores\DialogNavigationStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\UserThemeStore.cs" />
