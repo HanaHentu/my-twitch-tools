@@ -30,89 +30,25 @@
             </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <!--<ListBox
-                    Name="ListBoxChat"
-                    ScrollViewer.CanContentScroll="False"
+                <ListView
+                    Name="ListViewChat"
+                    Grid.Row="0"
+                    ItemsSource="{Binding Messages}"
+                    ScrollViewer.CanContentScroll="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    Style="{StaticResource StackPanelVerticalListBox}"
-                    ItemsSource="{Binding Accounts}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>-->
-
-                <Border Grid.Row="1" CornerRadius="10,10,0,0">
-                    <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource ThirdlyRegionColor}" />
-                    </Border.Background>
-                    <Grid Margin="10,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="0,0,5,0"
-                            Text="Hentu:">
-                            <TextBlock.Foreground>
-                                <SolidColorBrush Color="{DynamicResource AccentColor}" />
-                            </TextBlock.Foreground>
-                        </TextBlock>
-                        <TextBlock Grid.Column="1" Text="Sample text message" />
-                    </Grid>
-                </Border>
-
-                <Border Grid.Row="2">
-                    <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource RegionColor}" />
-                    </Border.Background>
-                    <Grid Margin="10,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="0,0,5,0"
-                            Text="Hentu:">
-                            <TextBlock.Foreground>
-                                <SolidColorBrush Color="{DynamicResource AccentColor}" />
-                            </TextBlock.Foreground>
-                        </TextBlock>
-                        <TextBlock Grid.Column="1" Text="Sample text message" />
-                    </Grid>
-                </Border>
-
-                <Border Grid.Row="3">
-                    <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource ThirdlyRegionColor}" />
-                    </Border.Background>
-                    <Grid Margin="10,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="0,0,5,0"
-                            Text="Hentu:">
-                            <TextBlock.Foreground>
-                                <SolidColorBrush Color="{DynamicResource AccentColor}" />
-                            </TextBlock.Foreground>
-                        </TextBlock>
-                        <TextBlock Grid.Column="1" Text="Sample text message" />
-                    </Grid>
-                </Border>
+                    Style="{DynamicResource ListView.Small}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Timestamp}" />
+                            <GridViewColumn DisplayMemberBinding="{Binding User}" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Text}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
                 <Border
                     Grid.Row="5"
@@ -129,6 +65,7 @@
                         <hc:ComboBox
                             Grid.Column="0"
                             HorizontalAlignment="Left"
+                            hc:InfoElement.Placeholder="Select an account"
                             DisplayMemberPath="Account.Login"
                             ItemsSource="{Binding Accounts}"
                             SelectedIndex="0"
@@ -139,7 +76,12 @@
                             Padding="8,0,32,0"
                             VerticalContentAlignment="Center"
                             hc:InfoElement.Placeholder="Send a message"
-                            TextWrapping="Wrap" />
+                            Text="{Binding CurrentMessageText, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap">
+                            <TextBoxBase.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding SendChatMessageCommand}" />
+                            </TextBoxBase.InputBindings>
+                        </hc:TextBox>
                         <Button
                             Grid.Column="1"
                             Width="25"
@@ -148,12 +90,24 @@
                             Padding="0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            hc:BorderElement.CornerRadius="8">
+                            hc:BorderElement.CornerRadius="8"
+                            Command="{Binding SendChatMessageCommand}">
                             <TextBlock
                                 FontFamily="{StaticResource FontAwesomeSolid900}"
                                 FontSize="15"
                                 Text="&#xf1d8;" />
                         </Button>
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="5,0,0,0"
+                            Padding="8,0,32,0"
+                            VerticalAlignment="Top"
+                            FontSize="10"
+                            Text="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{DynamicResource DangerColor}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
                     </Grid>
                 </Border>
             </Grid>

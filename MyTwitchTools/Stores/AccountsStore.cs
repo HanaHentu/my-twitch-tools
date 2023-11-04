@@ -12,11 +12,16 @@ namespace MyTwitchTools.Stores
         private readonly ObservableCollection<AccountViewModel> _accounts = new ObservableCollection<AccountViewModel>();
         public IEnumerable<AccountViewModel> Accounts => _accounts;
 
+        public bool SelectedAccountChanged { get; private set; }
+
         private AccountViewModel _selectedAccount;
         public AccountViewModel SelectedAccount
         {
             get { return _selectedAccount; }
-            set { _selectedAccount = value; }
+            set
+            {
+                _selectedAccount = value;
+            }
         }
 
         public event Action AccountStatusChanged;
@@ -31,11 +36,14 @@ namespace MyTwitchTools.Stores
         public void AddAccount(Account account)
         {
             _accounts.Add(new AccountViewModel(account));
+            AccountStatusChanged?.Invoke();
         }
 
         public void Remove(AccountViewModel accountViewModel)
         {
             _accounts.Remove(accountViewModel);
+            if (SelectedAccount == accountViewModel) SelectFirstActivatedAccount();
+            AccountStatusChanged?.Invoke();
         }
 
         public void ToggleAccountStatus(AccountViewModel accountViewModel)
@@ -43,9 +51,20 @@ namespace MyTwitchTools.Stores
             accountViewModel.Account.IsActivated = !accountViewModel.Account.IsActivated;
             if (_selectedAccount == accountViewModel && !_selectedAccount.Account.IsActivated)
             {
-                SelectedAccount = _accounts.FirstOrDefault(a => a.Account.IsActivated);
+                SelectFirstActivatedAccount();
             }
             AccountStatusChanged?.Invoke();
+        }
+
+        public void SelectFirstActivatedAccount()
+        {
+            SelectedAccount = _accounts.FirstOrDefault(a => a.Account.IsActivated);
+            SelectedAccountChanged = true;
+        }
+
+        public void ResetSelectedAccountChanged()
+        {
+            SelectedAccountChanged = false;
         }
     }
 }

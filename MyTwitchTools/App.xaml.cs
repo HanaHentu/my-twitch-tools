@@ -35,8 +35,7 @@ namespace MyTwitchTools
                 ));
             services.AddTransient<ChatViewModel>(s => new ChatViewModel(
                 s.GetRequiredService<ChatMessagesStore>(),
-                s.GetRequiredService<AccountsStore>(),
-                CreateHomeNavigationService(s)
+                s.GetRequiredService<AccountsStore>()
                 ));
             services.AddTransient<SettingsViewModel>(s => new SettingsViewModel(s.GetRequiredService<UserThemeStore>()));
             services.AddTransient<NavigationBarViewModel>(CreateNavigationBarViewModel);
