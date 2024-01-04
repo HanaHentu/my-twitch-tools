@@ -55,8 +55,8 @@
 
                 <TextBlock
                     Grid.Row="0"
-                    FontSize="12"
                     HorizontalAlignment="Right"
+                    FontSize="12"
                     Style="{StaticResource TextBlockSubTitle}"
                     Text="Select color accent" />
 

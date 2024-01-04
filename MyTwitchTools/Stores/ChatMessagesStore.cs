@@ -24,8 +24,8 @@ namespace MyTwitchTools.Stores
 
         public ChatMessagesStore()
         {
-            _messages.Add(new ChatMessageViewModel(new Message() { User = "Hentu", Text = "Sample message", Timestamp = DateTime.Now }));
-            _messages.Add(new ChatMessageViewModel(new Message() { User = "Lily", Text = "Another sample message", Timestamp = DateTime.Now }));
+            _messages.Add(new ChatMessageViewModel(new Message("Hentu", "Sample message", DateTime.Now)));
+            _messages.Add(new ChatMessageViewModel(new Message("Lily", "Another sample message", DateTime.Now)));
         }
 
         public void SendMessage(Message Message)

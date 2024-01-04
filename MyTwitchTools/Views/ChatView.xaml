@@ -6,11 +6,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:MyTwitchTools.Views"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:behaviors="clr-namespace:MyTwitchTools.Behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <UserControl.Resources />
+    <UserControl.Resources>
+        <AlternationConverter x:Key="AlternationConverter">
+            <SolidColorBrush Color="{DynamicResource RegionColor}" />
+            <SolidColorBrush Color="{DynamicResource ThirdlyRegionColor}" />
+        </AlternationConverter>
+
+        <Style x:Key="ChatListViewItemStyle" TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(ItemsControl.AlternationIndex), Converter={StaticResource AlternationConverter}}">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style
+            x:Key="ChatListViewStyle"
+            BasedOn="{StaticResource {x:Type ListView}}"
+            TargetType="ListView">
+            <Setter Property="Padding" Value="0" />
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -37,17 +63,35 @@
                 <ListView
                     Name="ListViewChat"
                     Grid.Row="0"
+                    AlternationCount="2"
+                    ItemContainerStyle="{StaticResource ChatListViewItemStyle}"
                     ItemsSource="{Binding Messages}"
-                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.CanContentScroll="False"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    Style="{DynamicResource ListView.Small}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Timestamp}" />
-                            <GridViewColumn DisplayMemberBinding="{Binding User}" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Text}" />
-                        </GridView>
-                    </ListView.View>
+                    Style="{StaticResource ChatListViewStyle}"
+                    VirtualizingPanel.IsVirtualizing="True"
+                    VirtualizingPanel.VirtualizationMode="Recycling">
+                    <b:Interaction.Behaviors>
+                        <behaviors:ScrollListToEndBehavior Source="{Binding Messages}"/>
+                    </b:Interaction.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <TextBlock>
+                                        <Run Foreground="PaleVioletRed" Text="{Binding Timestamp, Mode=OneWay}" />
+                                        <Run
+                                            FontWeight="Bold"
+                                            Foreground="DarkOrange"
+                                            Text="{Binding User, Mode=OneWay}" />
+                                        <Run Text=": " />
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Text, Mode=OneWay}" TextWrapping="Wrap" />
+                                </StackPanel>
+                                <Border Background="Gray" Style="{StaticResource BorderHorizontallySplitter}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
 
                 <Border

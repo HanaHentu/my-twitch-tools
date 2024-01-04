@@ -35,12 +35,11 @@ namespace MyTwitchTools.Commands
                 return;
             }
 
-            Message message = new Message
-            {
-                User = _chatViewModel.SelectedAccount.Account.Login,
-                Timestamp = DateTime.Now,
-                Text = _chatViewModel.CurrentMessageText
-            };
+            Message message = new Message(
+                _chatViewModel.SelectedAccount.Account.Login,
+                _chatViewModel.CurrentMessageText,
+                DateTime.Now
+                );
 
             _chatMessagesStore.SendMessage(message);
             _chatViewModel.CurrentMessageText = string.Empty;

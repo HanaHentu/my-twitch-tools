@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\ScrollListToEndBehavior.cs" />
     <Compile Include="Commands\AddAccountCommand.cs" />
     <Compile Include="Commands\ColorAccentCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
